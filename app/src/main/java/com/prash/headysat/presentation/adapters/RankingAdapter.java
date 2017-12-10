@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.prash.headysat.R;
 import com.prash.headysat.domain.model.Products;
@@ -118,8 +119,9 @@ public class RankingAdapter extends RealmRecyclerViewAdapter<Rankings, RankingAd
     }
 
     public RealmList<Products> sortData(int filter, boolean decend){
+        String msg = (decend ? "Sorted in decending order" : "Sorted in ascending order" );
+        Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
        return mRealmORMAdapter.sortRankings(filter, decend);
-
     }
 
 }

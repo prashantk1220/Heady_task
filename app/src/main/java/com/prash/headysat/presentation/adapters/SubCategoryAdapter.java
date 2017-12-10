@@ -16,57 +16,54 @@ import android.widget.TextView;
 
 import com.prash.headysat.R;
 import com.prash.headysat.domain.model.Categories;
-import com.prash.headysat.domain.model.Rankings;
+import com.prash.headysat.domain.model.Products;
 
 import io.realm.OrderedRealmCollection;
+import io.realm.RealmList;
 import io.realm.RealmRecyclerViewAdapter;
 
 /**
  * Created by prash on 10/12/17.
  */
 
-public class CategoryAdapter extends RealmRecyclerViewAdapter<Categories, CategoryAdapter.CategoryViewHolder>{
+public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.SubCategoryViewHolder> {
 
     public Context mContext;
     public RealmORMAdapter mRealmORMAdapter;
+    RealmList<Categories> mCategoriesList;
 
-    public CategoryAdapter(@Nullable OrderedRealmCollection<Categories> data) {
-        super(data, true);
+    public SubCategoryAdapter() {
+
+    }
+
+    public void setList(RealmList<Categories> categoriesList){
+        mCategoriesList = categoriesList;
     }
 
     @Override
-    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SubCategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.category_list_row, parent, false);
-        CategoryViewHolder categoryViewHolder = new CategoryViewHolder(itemView);
-        return categoryViewHolder;
+        SubCategoryViewHolder subCategoryViewHolder = new SubCategoryViewHolder(itemView);
+        return subCategoryViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final CategoryViewHolder holder, int position) {
-        final Categories obj = getItem(position);
-        holder.data = obj;
-        holder.categoryTitle.setText(obj.getName());
+    public void onBindViewHolder(final SubCategoryViewHolder holder, int position) {
+        Categories category = mCategoriesList.get(position);
+        holder.categoryTitle.setText(category.getName());
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 mContext,
                 LinearLayoutManager.VERTICAL,
                 false
         );
         holder.recyclerList.setLayoutManager(layoutManager);
-
-        if(obj.getProducts() != null) {
+        if(category.getProducts() != null) {
             ProductAdapter productAdapter = new ProductAdapter();
             productAdapter.setContext(mContext, mRealmORMAdapter);
-            productAdapter.setList(obj.getProducts());
+            productAdapter.setList(category.getProducts());
             holder.recyclerList.setAdapter(productAdapter);
         }
-        else{
-            SubCategoryAdapter subCategoryAdapter = new SubCategoryAdapter();
-            subCategoryAdapter.setList(mRealmORMAdapter.getCategoriesfromChild(obj.getChild_categories()));
-            subCategoryAdapter.setContext(mContext, mRealmORMAdapter);
-            holder.recyclerList.setAdapter(subCategoryAdapter);
-        }
-
         holder.titleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,14 +74,18 @@ public class CategoryAdapter extends RealmRecyclerViewAdapter<Categories, Catego
         });
     }
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemCount() {
+        return mCategoriesList.size();
+    }
+
+    public static class SubCategoryViewHolder extends RecyclerView.ViewHolder{
         public TextView categoryTitle;
         public CardView titleCard;
         public RecyclerView recyclerList;
         public boolean isCardExpanded;
-        public Categories data;
 
-        public CategoryViewHolder(View itemView) {
+        public SubCategoryViewHolder(View itemView) {
             super(itemView);
             isCardExpanded = false;
             categoryTitle = itemView.findViewById(R.id.categoryTitle);
@@ -103,9 +104,9 @@ public class CategoryAdapter extends RealmRecyclerViewAdapter<Categories, Catego
         dropDownArrow.startAnimation(expand ? rotate : inverseRotate);
     }
 
+
     public void setContext(Context context, RealmORMAdapter realmORMAdapter){
         mContext = context;
         mRealmORMAdapter = realmORMAdapter;
     }
-
 }

@@ -34,13 +34,26 @@ public class RealmORMAdapter {
         return mRealm.where(ResponseData.class).findFirst().getCategories();
     }
 
+    public RealmList<Categories> getCategoriesfromChild(RealmList<String> catIds){
+         RealmList<Categories> categoriesList = new RealmList<>();
+         for(String catId: catIds){
+            Categories category = mRealm.where(Categories.class).equalTo("id", catId).findFirst();
+            categoriesList.add(category);
+         }
+         return categoriesList;
+    }
+
+    public RealmList<Products> getProductsfromCategory(String catId){
+        Categories category = mRealm.where(Categories.class).equalTo("id", catId).findFirst();
+        return category.getProducts();
+    }
+
     public RealmList<Rankings> getRankings(){
         return mRealm.where(ResponseData.class).findFirst().getRankings();
     }
 
     public RealmList<Products> getRankingsCategory(int rankNo){
-        RealmQuery<Rankings> query = mRealm.where(Rankings.class);
-        RealmResults<Rankings> results = query.findAll();
+        RealmResults<Rankings> results = mRealm.where(Rankings.class).findAll();
         return getProductsbyRanking(results.get(rankNo).getProducts());
     }
 

@@ -42,6 +42,7 @@ public class CategoryFragment extends Fragment {
         recyclerCategoryList.setItemAnimator(new DefaultItemAnimator());
 
         CategoryAdapter categoryAdapter = new CategoryAdapter(realmORMAdapter.getCategories());
+        categoryAdapter.setContext(getContext(), realmORMAdapter);
         recyclerCategoryList.setAdapter(categoryAdapter);
 
         return  view;

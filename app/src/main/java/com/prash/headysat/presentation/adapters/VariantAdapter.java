@@ -38,9 +38,12 @@ public class VariantAdapter extends RealmRecyclerViewAdapter<Variants, VariantAd
     public void onBindViewHolder(VariantViewHolder holder, int position) {
         final Variants obj = getItem(position);
         holder.data = obj;
-        holder.color.setText(obj.getColor());
-        holder.size.setText(obj.getSize());
-        holder.price.setText(obj.getPrice());
+        if(obj.getColor() != null)
+            holder.color.setText("color: " + obj.getColor());
+        if(obj.getSize() != null)
+            holder.size.setText("size: " + obj.getSize());
+        if(obj.getPrice() != null)
+            holder.price.setText("price: " + obj.getPrice());
     }
 
     public static class VariantViewHolder extends RecyclerView.ViewHolder{
