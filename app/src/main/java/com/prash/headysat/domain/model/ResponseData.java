@@ -1,22 +1,30 @@
 package com.prash.headysat.domain.model;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+
 /**
  * Created by prash on 09/12/17.
  */
 
-public class ResponseData {
-    private Rankings[] rankings;
+public class ResponseData extends RealmObject{
 
+    private RealmList<Rankings> rankings = new RealmList<>();
+
+    @PrimaryKey
     private String _id;
 
-    private Categories[] categories;
 
-    public Rankings[] getRankings ()
+    private RealmList<Categories> categories = new RealmList<>();
+
+    public RealmList<Rankings> getRankings ()
     {
         return rankings;
     }
 
-    public void setRankings (Rankings[] rankings)
+    public void setRankings (RealmList<Rankings> rankings)
     {
         this.rankings = rankings;
     }
@@ -31,12 +39,12 @@ public class ResponseData {
         this._id = _id;
     }
 
-    public Categories[] getCategories ()
+    public RealmList<Categories> getCategories ()
     {
         return categories;
     }
 
-    public void setCategories (Categories[] categories)
+    public void setCategories (RealmList<Categories> categories)
     {
         this.categories = categories;
     }

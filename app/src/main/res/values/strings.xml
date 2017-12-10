@@ -3,4 +3,7 @@
 
     <string name="no_internet">No Internet access, Please check your connection</string>
     <string name="server_error">Please try after some time, Server maintenance issue</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

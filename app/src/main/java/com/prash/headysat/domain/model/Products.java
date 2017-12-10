@@ -1,10 +1,16 @@
 package com.prash.headysat.domain.model;
 
+import io.realm.RealmList;
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by prash on 09/12/17.
  */
 
-public class Products {
+public class Products extends RealmObject {
+    @PrimaryKey
     private String id;
 
     private Tax tax;
@@ -13,7 +19,7 @@ public class Products {
 
     private String name;
 
-    private Variants[] variants;
+    private RealmList<Variants> variants = new RealmList<>();
 
     public String getId ()
     {
@@ -55,12 +61,12 @@ public class Products {
         this.name = name;
     }
 
-    public Variants[] getVariants ()
+    public RealmList<Variants> getVariants ()
     {
         return variants;
     }
 
-    public void setVariants (Variants[] variants)
+    public void setVariants (RealmList<Variants> variants)
     {
         this.variants = variants;
     }

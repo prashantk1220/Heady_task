@@ -10,6 +10,6 @@ import retrofit2.http.GET;
  */
 
 public interface GetResponse {
-    @GET("/")
+    @GET("/json")
     Call<ResponseData> getResponse();
 }
