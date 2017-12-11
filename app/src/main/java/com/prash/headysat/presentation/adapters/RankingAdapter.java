@@ -56,18 +56,24 @@ public class RankingAdapter extends RealmRecyclerViewAdapter<Rankings, RankingAd
         mProductAdapter = new ProductAdapter();
         mProductAdapter.setContext(mContext, mRealmORMAdapter);
         mProductAdapter.setList(mRealmORMAdapter.getRankingsCategory(position));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(
-                mContext,
-                LinearLayoutManager.VERTICAL,
-                false
-        );
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         holder.productsList.setLayoutManager(layoutManager);
         holder.productsList.setAdapter(mProductAdapter);
         holder.sortIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mProductAdapter.setList(sortData(position, holder.isDecending));
-                holder.isDecending = !holder.isDecending;
+                if(holder.isCardExpanded) {
+                    mProductAdapter = new ProductAdapter();
+                    mProductAdapter.setContext(mContext, mRealmORMAdapter);
+                    mProductAdapter.setList(sortData(holder.titleCard, position, !holder.isDecending));
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+                    holder.productsList.setLayoutManager(layoutManager);
+                    holder.productsList.setAdapter(mProductAdapter);
+                    holder.isDecending = !holder.isDecending;
+                }
+                else{
+                    Toast.makeText(mContext, "Please expand the list first", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         holder.titleCard.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +114,9 @@ public class RankingAdapter extends RealmRecyclerViewAdapter<Rankings, RankingAd
 
     public void expandList(View v, boolean expand, RecyclerView list) {
 
-        ImageView dropDownArrow = v.findViewById(R.id.arrow);
-
         list.setVisibility(expand ? View.VISIBLE:View.GONE);
+
+        ImageView dropDownArrow = v.findViewById(R.id.arrow);
         Animation rotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_image);
         Animation inverseRotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_image_reverse);
         dropDownArrow.startAnimation(expand? rotate:inverseRotate);
@@ -118,9 +124,16 @@ public class RankingAdapter extends RealmRecyclerViewAdapter<Rankings, RankingAd
 
     }
 
-    public RealmList<Products> sortData(int filter, boolean decend){
+    public RealmList<Products> sortData(View v,int filter, boolean decend){
+
         String msg = (decend ? "Sorted in decending order" : "Sorted in ascending order" );
         Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
+
+        ImageView sortArrow = v.findViewById(R.id.sort);
+        Animation rotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_image);
+        Animation inverseRotate = AnimationUtils.loadAnimation(mContext, R.anim.rotate_image_reverse);
+        sortArrow.startAnimation(decend? rotate:inverseRotate);
+
        return mRealmORMAdapter.sortRankings(filter, decend);
     }
 

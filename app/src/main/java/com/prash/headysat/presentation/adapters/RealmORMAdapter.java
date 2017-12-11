@@ -23,11 +23,9 @@ public class RealmORMAdapter {
 
 
     Realm mRealm;
-    ResponseData mAllValues;
 
     public RealmORMAdapter(){
         mRealm = Realm.getDefaultInstance();
-        mAllValues = mRealm.where(ResponseData.class).equalTo("_id", "0").findFirst();
     }
 
     public RealmList<Categories> getCategories(){

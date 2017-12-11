@@ -36,8 +36,6 @@ public class MainApplication extends Application {
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
-        mRealmORMAdapter = new RealmORMAdapter();
-
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(getURL("BASE_URL"))
@@ -73,17 +71,11 @@ public class MainApplication extends Application {
         return mRetrofit;
     }
 
-    public RealmORMAdapter getRealmORMAdapter(){
-        return mRealmORMAdapter;
-    }
-
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        if(mRetrofit != null)
+        if (mRetrofit != null)
             mRetrofit = null;
-        if(mRealmORMAdapter != null)
-            mRealmORMAdapter = null;
     }
 }

@@ -18,15 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="@dimen/margin_bot"
             android:id="@+id/categoryTitle"/>
-        <ImageView
-            android:src="@drawable/ic_sort_black_24dp"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_margin"/>
+
         <ImageView
             android:id="@+id/arrow"
+            android:padding="@dimen/margin_bot"
             android:src="@drawable/ic_arrow_up_black_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -36,8 +33,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/view_gap"
         android:scrollbars="vertical"
         android:visibility="gone"/>
+
 
 </LinearLayout>

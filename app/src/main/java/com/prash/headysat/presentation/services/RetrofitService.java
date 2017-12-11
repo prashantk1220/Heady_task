@@ -50,6 +50,7 @@ public class RetrofitService {
                     mRealm.beginTransaction();
                     ResponseData realmResponseData = mRealm.copyToRealmOrUpdate(responseData);
                     mRealm.commitTransaction();
+                    ((MainActivity) mContext).setUpViewPager();
                 }
             }
 

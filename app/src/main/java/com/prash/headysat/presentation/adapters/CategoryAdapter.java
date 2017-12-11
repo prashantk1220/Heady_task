@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.prash.headysat.R;
 import com.prash.headysat.domain.model.Categories;
-import com.prash.headysat.domain.model.Rankings;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
@@ -54,7 +53,7 @@ public class CategoryAdapter extends RealmRecyclerViewAdapter<Categories, Catego
         );
         holder.recyclerList.setLayoutManager(layoutManager);
 
-        if(obj.getProducts() != null) {
+        if(obj.getProducts().size() > 0) {
             ProductAdapter productAdapter = new ProductAdapter();
             productAdapter.setContext(mContext, mRealmORMAdapter);
             productAdapter.setList(obj.getProducts());
@@ -81,6 +80,7 @@ public class CategoryAdapter extends RealmRecyclerViewAdapter<Categories, Catego
         public TextView categoryTitle;
         public CardView titleCard;
         public RecyclerView recyclerList;
+        public RecyclerView subList;
         public boolean isCardExpanded;
         public Categories data;
 

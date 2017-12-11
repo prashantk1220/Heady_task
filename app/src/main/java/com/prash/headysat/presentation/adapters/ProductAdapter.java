@@ -49,6 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Products products = mProductsList.get(position);
         holder.productName.setText(products.getName());
+        holder.productTax.setText(products.getTax().getName() + ": " + products.getTax().getValue() + "%");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 mContext,
                 LinearLayoutManager.HORIZONTAL,
@@ -68,10 +69,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder{
         public Products data;
         public TextView productName;
+        public TextView productTax;
         public RecyclerView variantsList;
         public ProductViewHolder(View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.productName);
+            productTax = itemView.findViewById(R.id.tax);
             variantsList = itemView.findViewById(R.id.variants_recycler_view);
         }
     }

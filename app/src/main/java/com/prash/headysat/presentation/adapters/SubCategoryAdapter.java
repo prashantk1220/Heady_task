@@ -58,11 +58,17 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                 false
         );
         holder.recyclerList.setLayoutManager(layoutManager);
-        if(category.getProducts() != null) {
+        if(category.getProducts().size() > 0) {
             ProductAdapter productAdapter = new ProductAdapter();
             productAdapter.setContext(mContext, mRealmORMAdapter);
             productAdapter.setList(category.getProducts());
             holder.recyclerList.setAdapter(productAdapter);
+        }
+        else{
+            SubCategoryAdapter subCategoryAdapter = new SubCategoryAdapter();
+            subCategoryAdapter.setList(mRealmORMAdapter.getCategoriesfromChild(category.getChild_categories()));
+            subCategoryAdapter.setContext(mContext, mRealmORMAdapter);
+            holder.recyclerList.setAdapter(subCategoryAdapter);
         }
         holder.titleCard.setOnClickListener(new View.OnClickListener() {
             @Override

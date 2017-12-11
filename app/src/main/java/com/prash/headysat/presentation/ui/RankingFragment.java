@@ -27,9 +27,6 @@ import io.realm.RealmList;
  */
 public class RankingFragment extends Fragment {
 
-    View mView;
-    RecyclerView mRecyclerRankingList;
-    RealmORMAdapter mRealmORMAdapter;
 
     public RankingFragment() {
         // Required empty public constructor
@@ -39,21 +36,21 @@ public class RankingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRealmORMAdapter = ((MainApplication)(getActivity()).getApplication()).getRealmORMAdapter();
+        RealmORMAdapter realmORMAdapter = ((MainActivity) getActivity()).getRealmORMAdapter();
         // Inflate the layout for this fragment
-        mView =  inflater.inflate(R.layout.fragment_ranking, container, false);
-        mRecyclerRankingList = mView.findViewById(R.id.rankingParentList);
+        View view =  inflater.inflate(R.layout.fragment_ranking, container, false);
+        RecyclerView recyclerRankingList = view.findViewById(R.id.rankingParentList);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerRankingList.setLayoutManager(layoutManager);
-        mRecyclerRankingList.setItemAnimator(new DefaultItemAnimator());
+        recyclerRankingList.setLayoutManager(layoutManager);
+        recyclerRankingList.setItemAnimator(new DefaultItemAnimator());
 
-        RankingAdapter rankingAdapter = new RankingAdapter(mRealmORMAdapter.getRankings());
-        rankingAdapter.setContext(getContext(), mRealmORMAdapter);
-        mRecyclerRankingList.setAdapter(rankingAdapter);
+        RankingAdapter rankingAdapter = new RankingAdapter(realmORMAdapter.getRankings());
+        rankingAdapter.setContext(getContext(), realmORMAdapter);
+        recyclerRankingList.setAdapter(rankingAdapter);
 
 
-        return mView;
+        return view;
     }
 
 
