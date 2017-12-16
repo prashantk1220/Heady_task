@@ -46,9 +46,11 @@ public class RealmORMAdapter {
          return categoriesList;
     }
 
-    public RealmList<Products> getProductsfromCategory(String catId){
-        Categories category = mRealm.where(Categories.class).equalTo("id", catId).findFirst();
-        return category.getProducts();
+    public RealmList<Products> getProducts(){
+       RealmResults<Products> products =  mRealm.where(Products.class).findAll();
+        RealmList<Products> productsList = new RealmList<>();
+        productsList.addAll(products);
+        return productsList;
     }
 
     public RealmList<Rankings> getRankings(){

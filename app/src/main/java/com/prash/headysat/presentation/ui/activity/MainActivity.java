@@ -18,6 +18,7 @@ import com.prash.headysat.presentation.adapters.RealmORMAdapter;
 import com.prash.headysat.presentation.adapters.ViewPagerAdapter;
 import com.prash.headysat.presentation.services.RetroService;
 import com.prash.headysat.presentation.ui.CategoryFragment;
+import com.prash.headysat.presentation.ui.ProductsFragment;
 import com.prash.headysat.presentation.ui.RankingFragment;
 
 
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public void setUpViewPager(){
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ProductsFragment(), "Shop by Products");
         adapter.addFragment(new CategoryFragment(), "Shop by category");
         adapter.addFragment(new RankingFragment(), "Shop by ranking");
         mViewPager.setAdapter(adapter);
