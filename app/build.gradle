@@ -2,8 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
 android {
+    compileOptions.incremental = false
     compileSdkVersion 26
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.prash.headysat"
         minSdkVersion 19
         targetSdkVersion 26
@@ -38,6 +40,11 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.6.0'
     implementation 'io.realm:android-adapters:2.1.1'
     implementation 'com.thoughtbot:expandablerecyclerview:1.3'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.google.dagger:dagger:2.7'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

@@ -1,5 +1,9 @@
 package com.prash.headysat.presentation.adapters;
 
+import android.app.Activity;
+import android.content.Context;
+
+import com.prash.headysat.di.ActivityComponent;
 import com.prash.headysat.domain.model.Categories;
 import com.prash.headysat.domain.model.Products;
 import com.prash.headysat.domain.model.RankingProducts;
@@ -8,6 +12,8 @@ import com.prash.headysat.domain.model.ResponseData;
 import com.prash.headysat.domain.model.Variants;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -20,7 +26,6 @@ import io.realm.Sort;
  */
 
 public class RealmORMAdapter {
-
 
     Realm mRealm;
 

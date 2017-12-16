@@ -10,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.prash.headysat.MainApplication;
 import com.prash.headysat.R;
 import com.prash.headysat.presentation.adapters.CategoryAdapter;
-import com.prash.headysat.presentation.adapters.RankingAdapter;
 import com.prash.headysat.presentation.adapters.RealmORMAdapter;
+import com.prash.headysat.presentation.ui.activity.MainActivity;
+
+import javax.inject.Inject;
 
 
 /**
@@ -22,17 +23,17 @@ import com.prash.headysat.presentation.adapters.RealmORMAdapter;
  */
 public class CategoryFragment extends Fragment {
 
-
     public CategoryFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RealmORMAdapter realmORMAdapter = ((MainActivity) getActivity()).getRealmORMAdapter();
+        RealmORMAdapter realmORMAdapter = new RealmORMAdapter();
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_category, container, false);
         RecyclerView recyclerCategoryList = view.findViewById(R.id.categoryList);
