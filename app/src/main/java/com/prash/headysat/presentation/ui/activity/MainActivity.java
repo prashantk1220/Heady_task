@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
 
     }
-
-
+    
     public ActivityComponent getComponent() {
         return activityComponent;
     }
